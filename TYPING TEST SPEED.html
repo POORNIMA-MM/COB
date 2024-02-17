@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Typing Speed Test</title>
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            background-color: #f0f0f0;
+            text-align: center;
+        }
+
+        .container {
+            max-width: 600px;
+            margin: 50px auto;
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        textarea {
+            width: 100%;
+            height: 100px;
+            margin: 10px 0;
+        }
+
+        button {
+            padding: 10px 20px;
+            background-color: #4caf50;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        button:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Typing Speed Test</h1>
+        <p id="passage"></p>
+        <textarea id="userInput" placeholder="Start typing the passage above"></textarea>
+        <button onclick="calculateSpeed()">Submit</button>
+        <p id="result"></p>
+    </div>
+    <script>
+        const passages = [
+            "The quick brown fox jumps over the lazy dog.",
+            "Programming is the art of telling another human what one wants the computer to do.",
+            "Success is not final, failure is not fatal: It is the courage to continue that counts."
+        ];
+
+        function getRandomPassage() {
+            const randomIndex = Math.floor(Math.random() * passages.length);
+            return passages[randomIndex];
+        }
+
+        function calculateSpeed() {
+            const passage = document.getElementById("passage").innerText;
+            const userInput = document.getElementById("userInput").value.trim();
+            
+            const passageWords = passage.split(' ');
+            const userInputWords = userInput.split(' ');
+
+            const correctWords = passageWords.filter((word, index) => word === userInputWords[index]).length;
+            const speed = Math.round((correctWords / passageWords.length) * 60);
+
+            document.getElementById("result").innerText = `Your typing speed is ${speed} words per minute.`;
+        }
+
+        document.addEventListener("DOMContentLoaded", function () {
+            const passageElement = document.getElementById("passage");
+            passageElement.innerText = getRandomPassage();
+        });
+    </script>
+</body>
+</html>
